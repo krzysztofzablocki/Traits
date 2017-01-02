@@ -1,0 +1,6 @@
+framework module Traits {
+  umbrella header "Traits-umbrella.h"
+
+  export *
+  module * { export * }
+}

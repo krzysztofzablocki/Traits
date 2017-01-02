@@ -1,0 +1,28 @@
+PODS:
+  - KZFileWatchers (1.0.1)
+  - Nimble (5.1.1)
+  - ObjectMapper (2.2.2)
+  - Quick (1.0.0)
+  - Traits (0.1.0):
+    - KZFileWatchers
+    - ObjectMapper
+
+DEPENDENCIES:
+  - Nimble
+  - Quick
+  - Traits (from `../`)
+
+EXTERNAL SOURCES:
+  Traits:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  KZFileWatchers: 0215a3745b1822c5efb56562b5870153dee582d0
+  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
+  ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
+  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
+  Traits: 30a8b6a2a1477038d985ec1eed7f1986f16aad11
+
+PODFILE CHECKSUM: d519fe72cc8bf70fb02631c44d209de7c32afdac
+
+COCOAPODS: 1.2.0.beta.1
