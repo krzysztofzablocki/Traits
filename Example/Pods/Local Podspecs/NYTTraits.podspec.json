@@ -1,0 +1,28 @@
+{
+  "name": "Traits",
+  "version": "0.1.0",
+  "summary": "Traits is a library that allows you to change visual traits of native UIKit views.",
+  "description": "Traits is a library that allows you to change visual traits of native UIKit views.\nIt requires almost no changes in your code, and supports live design changes on running iOS applications.",
+  "homepage": "https://github.com/NYTimes/NYTPhotoViewer",
+  "license": {
+    "type": "Apache 2.0",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Krzysztof Zabłocki": "krzysztof.zablocki@nytimes.com"
+  },
+  "source": {
+    "git": "https://github.com/NYTimes/Traits.git",
+    "tag": "0.1.0"
+  },
+  "social_media_url": "https://twitter.com/merowing_",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Traits/Classes/**/*",
+  "dependencies": {
+    "ObjectMapper": [
+      "~> 1.3"
+    ]
+  }
+}
