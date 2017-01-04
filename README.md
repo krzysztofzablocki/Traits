@@ -133,7 +133,7 @@ To give clarity of what is expected of our members, we adopted the code of condu
 
 ## License
 
-Traits is available under the MIT license. See [LICENSE](https://github.com/krzysztofzablocki/Traits/blob/develop/LICENSE.md) for more information.
+Traits is available under the MIT license. See [LICENSE](https://github.com/krzysztofzablocki/Traits/blob/master/LICENSE.md) for more information.
 
 ## Attributions
 
