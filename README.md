@@ -125,11 +125,11 @@ Created by [Krzysztof Zabłocki](krzysztof.zablocki@nytimes.com) ([twitter](http
 
 ## Contributing
 
-Contributions to Traits are welcomed and encouraged! Please see the [Contributing guide](https://github.com/krzysztofzablocki/Traits/blob/develop/CONTRIBUTING.md).
+Contributions to Traits are welcomed and encouraged! Please see the [Contributing guide](https://github.com/krzysztofzablocki/Traits/blob/master/CONTRIBUTING.md).
 
 [A list of contributors is available through GitHub.](https://github.com/krzysztofzablocki/Traits/graphs/contributors)
 
-To give clarity of what is expected of our members, we adopted the code of conduct defined by the Contributor Covenant. This document is used across many open source communities, and we think it articulates my values well. For more, see the [Code of Conduct](https://github.com/krzysztofzablocki/Traits/blob/develop/CODE_OF_CONDUCT.md).
+To give clarity of what is expected of our members, we adopted the code of conduct defined by the Contributor Covenant. This document is used across many open source communities, and we think it articulates my values well. For more, see the [Code of Conduct](https://github.com/krzysztofzablocki/Traits/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
