@@ -141,7 +141,7 @@ This tool is powered by
 - [Object Mapper](https://github.com/Hearst-DD/ObjectMapper)
 
 Thank you goes to:
-- Veronique Brossier and Chrys Wu from NYT because they helped me clarify expectations for this library.
+- Véronique Brossier and Chrys Wu from NYT because they helped me clarify expectations for this library.
 
 ## Other Libraries / Tools
 
