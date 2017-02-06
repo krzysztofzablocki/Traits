@@ -25,9 +25,29 @@ protocol AdvancedTrait: class {
     func apply(to target: Trait.Target, allTraits: [String: [Trait]], remove: inout Trait.RemoveClosure) throws
 }
 
+open class TypedTrait<TraitModifiable>: Trait {
+    internal override func verifyTypeRequirements(_ target: Trait.Target) throws {
+        guard target is TraitModifiable else {
+            throw Error.incorrectTarget(expected: [], received: type(of: target))
+        }
+    }
+
+    open func applyTyped(to target: TraitModifiable, remove: inout RemoveClosure) throws {
+        throw Error.requiresOverride
+    }
+
+    open override func apply(to target: NSObject, remove: inout RemoveClosure) throws {
+        guard let typedTarget = target as? TraitModifiable else {
+            throw Error.incorrectTarget(expected: [], received: type(of: target))
+        }
+
+        try applyTyped(to: typedTarget, remove: &remove)
+    }
+}
+
 /**
  * Base class for any Trait supported in the system.
-*/
+ */
 @objc open class Trait: NSObject {
     public typealias Target = NSObject
 
