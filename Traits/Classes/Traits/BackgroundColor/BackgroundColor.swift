@@ -14,7 +14,6 @@ public protocol BackgroundColorModifiable: class {
 
 extension UIView: BackgroundColorModifiable {}
 
-/// BackgroundColor is a trait allowing to change `UIView` backgroundColor.
 public final class BackgroundColor: TypedTrait<BackgroundColorModifiable> {
     private(set) var color: UIColor?
 

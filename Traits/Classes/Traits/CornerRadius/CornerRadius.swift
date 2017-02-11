@@ -8,14 +8,10 @@
 import ObjectMapper
 
 /// Corner Radius trait
-public final class CornerRadius: Trait {
+public final class CornerRadius: TypedTrait<UIView> {
     private(set) var radius: CGFloat?
 
-    override open class var restrictedTypes: [AnyClass]? { return [UIView.self] }
-
-    override open func apply(to target: Trait.Target, remove: inout RemoveClosure) throws {
-        let target = target as! UIView
-
+    override open func applyTyped(to target: UIView, remove: inout RemoveClosure) throws {
         remove = { [weak target, oldCornerRadius = target.layer.cornerRadius, oldMaskToBounds = target.layer.masksToBounds] in
             target?.layer.cornerRadius = oldCornerRadius
             target?.layer.masksToBounds = oldMaskToBounds

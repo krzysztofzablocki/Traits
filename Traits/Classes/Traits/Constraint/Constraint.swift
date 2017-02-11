@@ -9,14 +9,10 @@ import Foundation
 import ObjectMapper
 
 /// Font is a trait allowing to change fontSize, name and color.
-public final class Constraint: Trait {
+public final class Constraint: TypedTrait<NSLayoutConstraint> {
     private(set) var constant: CGFloat?
 
-    open override class var restrictedTypes: [AnyClass]? { return [NSLayoutConstraint.self] }
-
-    open override func apply(to target: Trait.Target, remove: inout RemoveClosure) throws {
-        let target = target as! NSLayoutConstraint
-
+    open override func applyTyped(to target: NSLayoutConstraint, remove: inout RemoveClosure) throws {
         remove = { [weak target, constant = target.constant] in
             guard let target = target else { return }
             target.constant = constant
