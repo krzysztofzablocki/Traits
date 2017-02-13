@@ -8,15 +8,16 @@
 import Foundation
 import ObjectMapper
 
-/// BackgroundColor is a trait allowing to change `UIView` backgroundColor.
-public final class BackgroundColor: Trait {
+public protocol BackgroundColorModifiable: class {
+    var backgroundColor: UIColor? { get set }
+}
+
+extension UIView: BackgroundColorModifiable {}
+
+public final class BackgroundColor: TypedTrait<BackgroundColorModifiable> {
     private(set) var color: UIColor?
 
-    open override class var restrictedTypes: [AnyClass]? { return [UIView.self] }
-
-    open override func apply(to target: Trait.Target, remove: inout RemoveClosure) throws {
-        let target = target as! UIView
-
+    open override func applyTyped(to target: BackgroundColorModifiable, remove: inout RemoveClosure) throws {
         remove = { [weak target, oldColor = target.backgroundColor] in
             target?.backgroundColor = oldColor
         }

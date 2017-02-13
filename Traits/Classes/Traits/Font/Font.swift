@@ -8,30 +8,33 @@
 import Foundation
 import ObjectMapper
 
+public protocol FontModifiable: class {
+    var font: UIFont! { get set }
+    var textColor: UIColor! { get set }
+}
+
+extension UILabel: FontModifiable {}
+
 /// Font is a trait allowing to change fontSize, name and color.
-public final class Font: Trait {
+public final class Font: TypedTrait<FontModifiable> {
     private(set) var fontSize: CGFloat?
     private(set) var fontName: String = ""
     private(set) var fontColor: UIColor = .white
 
-    open override class var restrictedTypes: [AnyClass]? { return [UILabel.self] }
-
-    open override func apply(to target: Trait.Target, remove: inout RemoveClosure) throws {
-        let label = target as! UILabel
-
-        remove = { [weak label, font = label.font, fontColor = label.textColor] in
-            guard let label = label else { return }
-            label.font = font
-            label.textColor = fontColor
+    open override func applyTyped(to target: FontModifiable, remove: inout RemoveClosure) throws {
+        remove = { [weak target, font = target.font, fontColor = target.textColor] in
+            guard let target = target else { return }
+            target.font = font
+            target.textColor = fontColor
         }
 
-        if let font = UIFont(name: fontName, size: fontSize ?? label.font.pointSize) {
-            label.font = font
+        if let font = UIFont(name: fontName, size: fontSize ?? target.font.pointSize) {
+            target.font = font
         } else {
             let allFonts = UIFont.familyNames.map(UIFont.fontNames(forFamilyName:))
             throw Error.unsupportedValue(info: "font \(fontName) unavailable, try any of \(allFonts)")
         }
-        label.textColor = fontColor
+        target.textColor = fontColor
     }
 
     public init(fontName: String, fontSize: CGFloat, fontColor: UIColor) {

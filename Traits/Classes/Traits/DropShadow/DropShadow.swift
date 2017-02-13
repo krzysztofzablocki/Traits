@@ -8,16 +8,12 @@
 import ObjectMapper
 
 /// DropShadow is a trait allowing to change `UIView` shadowOpacity, offset and color.
-public final class DropShadow: Trait {
+public final class DropShadow: TypedTrait<UIView> {
     private(set) var offset: CGSize = .zero
     private(set) var color: UIColor = .clear
     private(set) var opacity: Float = 0
 
-    open override class var restrictedTypes: [AnyClass]? { return [UIView.self] }
-
-    open override func apply(to target: Trait.Target, remove: inout RemoveClosure) throws {
-        let target = target as! UIView
-
+    open override func applyTyped(to target: UIView, remove: inout RemoveClosure) throws {
         remove = { [weak target, opacity = target.layer.shadowOpacity, offset = target.layer.shadowOffset, color = target.layer.shadowColor] in
             guard let strongView = target else { return }
             strongView.layer.shadowOpacity = opacity
