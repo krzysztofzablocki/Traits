@@ -36,16 +36,12 @@ class TraitSpec: QuickSpec {
             }
 
             it("generates correct typeName") {
-                expect(TestTrait.typeName).to(equal("TestTrait"))
-            }
-
-            it("contains factory for new type") {
-                expect(Trait.factories.keys).to(contain("TestTrait"))
+                expect(TestTrait.typeName).to(equal("Traits_Tests.TestTrait"))
             }
 
             describe("when mapping") {
                 it("resolves to correct Type from json") {
-                    let map = Map(mappingType: .fromJSON, JSON: [ "type": "TestTrait"])
+                    let map = Map(mappingType: .fromJSON, JSON: [ "type": "Traits_Tests.TestTrait"])
 
                     expect((Trait.objectForMapping(map: map) as? NSObject)).to(beAKindOf(TestTrait.self))
                 }
@@ -55,7 +51,7 @@ class TraitSpec: QuickSpec {
 
                     sut?.mapping(map: map)
 
-                    expect(map.JSON["type"] as? String).to(equal("TestTrait"))
+                    expect(map.JSON["type"] as? String).to(equal("Traits_Tests.TestTrait"))
                 }
             }
         }

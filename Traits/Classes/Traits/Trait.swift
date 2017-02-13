@@ -111,7 +111,8 @@ open class TypedTrait<TraitModifiable>: Trait {
      Type name of the trait as a String.
      */
     class var typeName: String {
-        return String(describing: self)
+        return NSStringFromClass(self)
+
     }
 
     public override init() {}
@@ -138,8 +139,6 @@ open class TypedTrait<TraitModifiable>: Trait {
 
 // MARK: - Conformance to Mappable
 extension Trait: Mappable, StaticMappable {
-    typealias Factory = (_ map: Map) -> Trait?
-    fileprivate(set) static var factories = Trait.getTraitFactories()
     fileprivate static let typeKey = "type"
 
     /**
@@ -152,8 +151,8 @@ extension Trait: Mappable, StaticMappable {
     public class func objectForMapping(map: Map) -> BaseMappable? {
 
         if let type: String = map[Trait.typeKey].value() {
-            if let factory = factories[type] {
-                return factory(map)
+            if let traitClass = NSClassFromString(type).flatMap({ $0 as? Trait.Type }) {
+                return traitClass.init(map: map)
             }
 
             print("Unknown Trait type for key \(type)")
@@ -162,56 +161,5 @@ extension Trait: Mappable, StaticMappable {
 
         print("Definition is missing `type` property")
         return nil
-    }
-}
-
-// MARK: - Support for code injection.
-extension Trait {
-    /**
-     This function will be called on code injection, thus allowing us to load new Trait classes as they appear.
-     */
-    class func injected() {
-        Trait.factories = Trait.getTraitFactories()
-    }
-}
-
-//! MARK - Use ObjectiveC runtime to automatically register all available traits, that way developers don't need to manualy do so.
-extension Trait {
-
-    fileprivate static func getTraitFactories() -> [String: Factory] {
-        let classes = classList()
-        var ret = [String: Factory]()
-
-        for cls in classes {
-            var current: AnyClass? = cls
-            repeat {
-                current = class_getSuperclass(current)
-            } while (current != nil && current != Trait.self)
-
-            if current == nil { continue }
-
-            if let typed = cls as? Trait.Type {
-                ret[String(describing: cls)] = typed.init
-            }
-        }
-        return ret
-    }
-
-    fileprivate static func classList() -> [AnyClass] {
-        let expectedClassCount = objc_getClassList(nil, 0)
-        let allClasses = UnsafeMutablePointer<AnyClass?>.allocate(capacity: Int(expectedClassCount))
-        let autoreleasingAllClasses = AutoreleasingUnsafeMutablePointer<AnyClass?>(allClasses)
-        let actualClassCount: Int32 = objc_getClassList(autoreleasingAllClasses, expectedClassCount)
-
-        var classes = [AnyClass]()
-        for i in 0 ..< actualClassCount {
-            if let currentClass: AnyClass = allClasses[Int(i)] {
-                classes.append(currentClass)
-            }
-        }
-
-        allClasses.deallocate(capacity: Int(expectedClassCount))
-
-        return classes
     }
 }
